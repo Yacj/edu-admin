@@ -37,6 +37,10 @@ const rules = {
     },
   ],
 }
+const btnLoading = ref(false)
+const router = useRouter()
+const route = useRoute()
+const redirect = ref(route.query.redirect?.toString() ?? '/')
 onMounted(() => {
   getCaptchaCode()
 })
@@ -55,6 +59,7 @@ function handleChangeLoginType() {
   getCaptchaCode()
 }
 function handleSubmitLogin(values: any) {
+  btnLoading.value = true
   const formData = {
     ...values,
     Sign: loginForm.Sign,
@@ -62,8 +67,15 @@ function handleSubmitLogin(values: any) {
   formData.Pwd = cryptoData.encrypt(formData.Pwd)
   userStore.login(formData).then((res) => {
     window.console.log(res)
+    btnLoading.value = false
+    if (res) {
+      router.push({
+        path: redirect.value,
+      })
+    }
   }).catch((err) => {
     window.console.error('login error', err)
+    btnLoading.value = false
     getCaptchaCode()
   })
 }
@@ -147,6 +159,7 @@ function handleSubmitLogin(values: any) {
                 block
                 size="large"
                 html-type="submit"
+                :loading="btnLoading"
               >
                 登录
               </a-button>

@@ -39,13 +39,13 @@ defineExpose({
 
 <template>
   <div
-    ref="itemRef" class="menu-item relative transition-all" :class="{
+    ref="itemRef" class="menu-item relative transition-all px-2 py-1" :class="{
       active: isItemActive,
     }"
   >
     <div
-      class="menu-item-container w-full h-full flex justify-between items-center gap-1 px-5 py-4 transition-all cursor-pointer group text-[var(--g-sub-sidebar-menu-color)] hover:(text-[var(--g-sub-sidebar-menu-hover-color)] bg-[var(--g-sub-sidebar-menu-hover-bg)])" :class="{
-        'text-[var(--g-sub-sidebar-menu-active-color)]! bg-[var(--g-sub-sidebar-menu-active-bg)]!': isItemActive,
+      class="menu-item-container w-full h-full flex justify-between items-center gap-1 px-5 py-4 transition-all cursor-pointer group text-[var(--g-sub-sidebar-menu-color)] hover:(text-[var(--g-sub-sidebar-menu-hover-color)] bg-[var(--g-sub-sidebar-menu-hover-bg)] rounded-2)" :class="{
+        'text-[var(--g-sub-sidebar-menu-active-color)]! bg-[var(--g-sub-sidebar-menu-active-bg)]! px-3 rounded-2': isItemActive,
         'px-3!': rootMenu.isMenuPopup && level === 0,
       }" :title="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title"
     >

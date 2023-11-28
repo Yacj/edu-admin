@@ -1,9 +1,9 @@
 import useRouteStore from './route'
 import useMenuStore from './menu'
 import router from '@/router'
-import type { LoginForm } from '@/api/modules/user'
+import type {LoginForm} from '@/api/modules/user'
 import userService from '@/api/modules/user'
-import { deepClone } from '@/utils'
+import {deepClone} from '@/utils'
 import storageUtil from '@/utils/storage.ts'
 
 const useUserStore = defineStore(
@@ -12,12 +12,13 @@ const useUserStore = defineStore(
   () => {
     const routeStore = useRouteStore()
     const menuStore = useMenuStore()
+
     const account = ref(storageUtil.getItem('account') ?? '')
     const token = ref(storageUtil.getItem('token') ?? '')
     const failure_time = ref(storageUtil.getItem('failure_time') ?? '')
-    const avatar = ref(storageUtil.getItem('avatar') ?? '')
     const userInfo = ref(storageUtil.getItem('userInfo') ?? '')
     const permissions = ref<string[]>([])
+
     const isLogin = computed(() => {
       let retn = false
       if (token.value) {
@@ -33,7 +34,24 @@ const useUserStore = defineStore(
       return new Promise((resolve, reject) => {
         userService.login(data)
           .then((res) => {
-            resolve(res);
+            const UserInfo = deepClone(res.Data)
+
+            const failed = Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60
+
+            token.value = UserInfo.UserToken
+            storageUtil.setItem('token', UserInfo.UserToken)
+            delete UserInfo.UserToken
+
+            account.value = data.UserName
+            storageUtil.setItem('account', data.UserName)
+
+            userInfo.value = UserInfo
+            storageUtil.setItem('userInfo', UserInfo)
+
+            failure_time.value = failed
+            storageUtil.setItem('failure_time', failed)
+
+            resolve(true);
           })
           .catch((error) => {
             reject(error);
@@ -50,6 +68,7 @@ const useUserStore = defineStore(
       // failure_time.value = res.data.failure_time
       // avatar.value = res.data.avatar
     }
+
     // 登出
     async function logout(redirect = router.currentRoute.value.fullPath) {
       localStorage.removeItem('account')
@@ -59,17 +78,17 @@ const useUserStore = defineStore(
       account.value = ''
       token.value = ''
       failure_time.value = ''
-      avatar.value = ''
       permissions.value = []
       routeStore.removeRoutes()
       menuStore.setActived(0)
       router.push({
         name: 'login',
         query: {
-          ...(router.currentRoute.value.path !== '/' && router.currentRoute.value.name !== 'login' && { redirect }),
+          ...(router.currentRoute.value.path !== '/' && router.currentRoute.value.name !== 'login' && {redirect}),
         },
       })
     }
+
     // 获取权限
     async function getPermissions() {
       const permissions = [
@@ -80,6 +99,7 @@ const useUserStore = defineStore(
       ]
       return permissions
     }
+
     // 修改密码
     async function editPassword(data: {
       password: string
@@ -91,7 +111,6 @@ const useUserStore = defineStore(
     return {
       account,
       token,
-      avatar,
       permissions,
       isLogin,
       login,

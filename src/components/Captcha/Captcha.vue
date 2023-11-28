@@ -79,14 +79,13 @@ function generateCode() {
 
   ctx.restore()
   ctx.save()
-  console.log(codeText)
   return codeText
 }
 
 watch(() => props.code, () => {
-    console.log('1')
   generateCode()
 })
+
 function refresh() {
   emit('click')
 }

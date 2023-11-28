@@ -21,7 +21,7 @@ const { switchTo } = useMenu()
       <div class="menu flex flex-col of-hidden transition-all">
         <template v-for="(item, index) in menuStore.allMenus" :key="index">
           <div
-            class="menu-item relative transition-all" :class="{
+            class="menu-item relative transition-all px-2 py-1" :class="{
               active: index === menuStore.actived,
             }"
           >
@@ -93,6 +93,7 @@ const { switchTo } = useMenu()
       &.active .menu-item-container {
         color: var(--g-main-sidebar-menu-active-color) !important;
         background-color: var(--g-main-sidebar-menu-active-bg) !important;
+        border-radius: 5px;
       }
     }
   }

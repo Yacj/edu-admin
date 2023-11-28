@@ -16,7 +16,6 @@ declare module 'vue' {
     AInput: typeof import('ant-design-vue/es')['Input']
     AInputPassword: typeof import('ant-design-vue/es')['InputPassword']
     AQrcode: typeof import('ant-design-vue/es')['QRCode']
-    ASpace: typeof import('ant-design-vue/es')['Space']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     Auth: typeof import('./../components/Auth/index.vue')['default']
     AuthAll: typeof import('./../components/AuthAll/index.vue')['default']
@@ -49,6 +48,5 @@ declare module 'vue' {
     SystemInfo: typeof import('./../components/SystemInfo/index.vue')['default']
     TokenProvider: typeof import('./../components/TokenProvider/TokenProvider.vue')['default']
     Trend: typeof import('./../components/Trend/index.vue')['default']
-    VerifyCode: typeof import('./../components/VerifyCode/VerifyCode.vue')['default']
   }
 }
