@@ -27,15 +27,6 @@ const subSidebarActualWidth = computed(() => {
   if (settingsStore.settings.menu.subMenuCollapse && settingsStore.mode !== 'mobile') {
     actualWidth = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--g-sub-sidebar-collapse-width'))
   }
-  if (
-    menuStore.sidebarMenus.length === 1
-    && (
-      !menuStore.sidebarMenus[0].children
-      || menuStore.sidebarMenus[0]?.children.every(item => item.meta?.sidebar === false)
-    )
-  ) {
-    actualWidth = 0
-  }
   return `${actualWidth}px`
 })
 

@@ -13,20 +13,9 @@ defineOptions({
 const route = useRoute()
 
 const settingsStore = useSettingsStore()
-const menuStore = useMenuStore()
 
 const enableSubMenuCollapseButton = computed(() => {
-  return settingsStore.mode === 'mobile' || (
-    ['side', 'head', 'single'].includes(settingsStore.settings.menu.menuMode)
-    && settingsStore.settings.menu.enableSubMenuCollapseButton
-    && !(
-      menuStore.sidebarMenus.length === 1
-      && (
-        !menuStore.sidebarMenus[0].children
-        || menuStore.sidebarMenus[0]?.children.every(item => item.meta?.sidebar === false)
-      )
-    )
-  )
+  return settingsStore.mode === 'mobile' || settingsStore.settings.menu.enableSubMenuCollapseButton
 })
 
 const breadcrumbList = computed(() => {
@@ -39,7 +28,7 @@ const breadcrumbList = computed(() => {
   }
   if (route.meta.breadcrumbNeste) {
     route.meta.breadcrumbNeste.forEach((item) => {
-      if (item.hide === false) {
+      if (!item.hide) {
         breadcrumbList.push({
           path: item.path,
           title: item.title,

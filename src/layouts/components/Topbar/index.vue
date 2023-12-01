@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Toolbar from './Toolbar/index.vue'
 import useSettingsStore from '@/store/modules/settings'
+import NavTab from "@/layouts/components/NavTab/NavTab.vue";
 
 defineOptions({
   name: 'Topbar',

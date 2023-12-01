@@ -19,9 +19,9 @@ export const lightTheme = {
   '--g-header-menu-active-color': '#fff',
   // 主导航
   '--g-main-sidebar-bg': '#282c34',
-  '--g-main-sidebar-menu-color': '#0f0f0f',
-  '--g-main-sidebar-menu-hover-bg': '#dde1e3',
-  '--g-main-sidebar-menu-hover-color': '#0f0f0f',
+  '--g-main-sidebar-menu-color': '#fff',
+  '--g-main-sidebar-menu-hover-bg': 'var(--ant-color-primary)',
+  '--g-main-sidebar-menu-hover-color': '#fff',
   '--g-main-sidebar-menu-active-bg': 'var(--ant-color-primary)',
   '--g-main-sidebar-menu-active-color': '#fff',
   // 次导航
@@ -55,8 +55,8 @@ export const darkTheme = {
   // 主导航
   '--g-main-sidebar-bg': '#0a0a0a',
   '--g-main-sidebar-menu-color': '#a8a29e',
-  '--g-main-sidebar-menu-hover-bg': '#141414',
-  '--g-main-sidebar-menu-hover-color': '#e5e5e5',
+  '--g-main-sidebar-menu-hover-bg': 'var(--ant-color-primary)',
+  '--g-main-sidebar-menu-hover-color': '#fff',
   '--g-main-sidebar-menu-active-bg': 'var(--ant-color-primary)',
   '--g-main-sidebar-menu-active-color': '#fff',
   // 次导航

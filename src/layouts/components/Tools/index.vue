@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useFullscreen } from '@vueuse/core'
+import { LoginOutlined, UserOutlined } from '@ant-design/icons-vue'
+import { Modal } from 'ant-design-vue'
 import eventBus from '@/utils/eventBus'
 import useSettingsStore from '@/store/modules/settings'
 import useUserStore from '@/store/modules/user'
@@ -45,11 +47,21 @@ function toggleColorScheme(event: MouseEvent) {
 }
 
 const avatarError = ref(false)
-watch(() => userStore.avatar, () => {
+watch(() => userStore.userInfo.HeadImg, () => {
   if (avatarError.value) {
     avatarError.value = false
   }
 })
+
+function handleLogout() {
+  Modal.confirm({
+    title: '提示',
+    content: '确定要退出登录吗？',
+    onOk: () => {
+      userStore.logout()
+    },
+  })
+}
 </script>
 
 <template>
@@ -73,26 +85,26 @@ watch(() => userStore.avatar, () => {
         <SvgIcon :name="settingsStore.settings.app.colorScheme === 'light' ? 'ri:sun-line' : 'ri:moon-line'" />
       </span>
     </div>
-    <HDropdownMenu
-      :items="[
-        [
-          { label: settingsStore.settings.home.title, handle: () => router.push({ name: 'home' }), hide: !settingsStore.settings.home.enable },
-        ],
-        [
-          { label: '快捷键介绍', handle: () => eventBus.emit('global-hotkeys-intro-toggle'), hide: settingsStore.mode !== 'pc' },
-        ],
-        [
-          { label: '退出登录', handle: () => userStore.logout() },
-        ],
-      ]"
-    >
+    <a-dropdown placement="bottom">
+      <template #overlay>
+        <a-menu>
+          <a-menu-item class="flex-center">
+            <UserOutlined class="mr-1" />
+            个人信息
+          </a-menu-item>
+          <a-menu-item class="flex-center" @click="handleLogout">
+            <LoginOutlined class="mr-1" />
+            退出登录
+          </a-menu-item>
+        </a-menu>
+      </template>
       <div flex-center gap-1 cursor-pointer>
-        <img v-if="userStore.avatar && !avatarError" :src="userStore.avatar" :onerror="() => (avatarError = true)" class="w-[24px] h-[24px] rounded-full">
+        <img v-if="userStore.userInfo.HeadImg && !avatarError" alt="avatar" :src="userStore.userInfo.HeadImg" :onerror="() => (avatarError = true)" class="w-[24px] h-[24px] rounded-full">
         <SvgIcon v-else name="carbon:user-avatar-filled-alt" :size="24" class="text-gray-400" />
-        {{ userStore.account }}
+        {{ userStore.userInfo.UserName }}
         <SvgIcon name="ep:caret-bottom" />
       </div>
-    </HDropdownMenu>
+    </a-dropdown>
   </div>
 </template>
 

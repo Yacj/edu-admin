@@ -26,7 +26,7 @@ const { switchTo } = useMenu()
             }"
           >
             <div
-              v-if="item.children && item.children.length !== 0" class="menu-item-container w-full h-full flex justify-between items-center gap-1 px-2! py-4 transition-all cursor-pointer group text-[var(--g-main-sidebar-menu-color)] hover:(text-[var(--g-main-sidebar-menu-hover-color)] bg-[var(--g-main-sidebar-menu-hover-bg)])" :class="{
+              v-if="item.children && item.children.length !== 0" class="menu-item-container w-full h-full flex justify-between items-center gap-1 px-2! py-4 transition-all cursor-pointer group text-[var(--g-main-sidebar-menu-color)] hover:(text-[var(--g-main-sidebar-menu-hover-color)] bg-[var(--g-main-sidebar-menu-hover-bg)] rounded)" :class="{
                 'text-[var(--g-main-sidebar-menu-active-color)]! bg-[var(--g-main-sidebar-menu-active-bg)]!': index === menuStore.actived,
               }" :title="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title" @click="switchTo(index)"
             >

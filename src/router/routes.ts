@@ -1,9 +1,10 @@
 import { setupLayouts } from 'virtual:meta-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import type { RouteRecordRaw } from 'vue-router'
-import MultilevelMenuExample from './modules/multilevel.menu.example'
 import type { Route } from '#/global'
 import useSettingsStore from '@/store/modules/settings'
+import dashboard from '@/router/modules/dashboard.ts'
+import authorize from '@/router/modules/authorize.ts'
 
 // 固定路由（默认路由）
 const constantRoutes: RouteRecordRaw[] = [
@@ -73,7 +74,7 @@ const systemRoutes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/index.vue'),
+        redirect: '/dashboard',
         meta: {
           title: () => useSettingsStore().settings.home.title,
           icon: 'ant-design:home-twotone',
@@ -97,11 +98,20 @@ const systemRoutes: RouteRecordRaw[] = [
 const asyncRoutes: Route.recordMainRaw[] = [
   {
     meta: {
-      title: '演示',
-      icon: 'uim:box',
+      title: '首页',
+      icon: 'ant-design:home-twotone',
     },
     children: [
-      MultilevelMenuExample,
+      dashboard,
+    ],
+  },
+  {
+    meta: {
+      title: '授权管理',
+      icon: 'ant-design:control-outlined',
+    },
+    children: [
+      ...authorize,
     ],
   },
 ]

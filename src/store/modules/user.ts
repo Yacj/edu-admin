@@ -57,16 +57,6 @@ const useUserStore = defineStore(
             reject(error);
           });
       });
-      // const res = await userService.login(data)
-      // console.log(res)
-      // localStorage.setItem('account', res.data.account)
-      // localStorage.setItem('token', res.data.token)
-      // localStorage.setItem('failure_time', res.data.failure_time)
-      // localStorage.setItem('avatar', res.data.avatar)
-      // account.value = res.data.account
-      // token.value = res.data.token
-      // failure_time.value = res.data.failure_time
-      // avatar.value = res.data.avatar
     }
 
     // 登出
@@ -117,6 +107,7 @@ const useUserStore = defineStore(
       logout,
       getPermissions,
       editPassword,
+      userInfo
     }
   },
 )

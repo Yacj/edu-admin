@@ -36,7 +36,7 @@ const enableSidebar = computed(() => {
 
 <template>
   <div
-    v-if="enableSidebar" class="sub-sidebar-container" :class="{
+     class="sub-sidebar-container" :class="{
       'is-collapse': settingsStore.mode === 'pc' && settingsStore.settings.menu.subMenuCollapse,
     }"
   >

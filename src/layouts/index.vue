@@ -81,6 +81,7 @@ onUnmounted(() => {
         <div class="sidebar-mask" :class="{ show: settingsStore.mode === 'mobile' && !settingsStore.settings.menu.subMenuCollapse }" @click="settingsStore.toggleSidebarCollapse()" />
         <div class="main-container">
           <Topbar />
+          <!--          <NavTab/> -->
           <div class="main">
             <RouterView v-slot="{ Component, route }">
               <Transition name="slide-right" mode="out-in" appear>
@@ -150,7 +151,7 @@ onUnmounted(() => {
 
   .sidebar-container {
     position: fixed;
-    z-index: 1010;
+    z-index: 120;
     top: 0;
     bottom: 0;
     display: flex;
